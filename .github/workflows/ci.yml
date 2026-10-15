@@ -36,6 +36,7 @@ jobs:
           curl --fail --location --retry 3 "https://cli.moonbitlang.com/binaries/$version/moonbit-linux-x86_64.tar.gz.sha256" -o .tools/archive.sha256
           (cd .tools && sha256sum --check archive.sha256)
           tar -xzf .tools/moonbit-linux-x86_64.tar.gz -C .tools/moon
+          chmod +x .tools/moon/bin/*
           curl --fail --location --retry 3 "https://cli.moonbitlang.com/cores/core-$version.tar.gz" -o .tools/core.tar.gz
           tar -xzf .tools/core.tar.gz -C .tools/moon/lib
           export MOON_HOME="$PWD/.tools/moon"
