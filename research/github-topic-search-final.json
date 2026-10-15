@@ -1,0 +1,77 @@
+[
+  {
+    "query": "TFM MoonBit in:name,description,readme",
+    "url": "https://api.github.com/search/repositories?q=TFM+MoonBit+in%3Aname%2Cdescription%2Creadme&per_page=30",
+    "total_count": 1,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "mldong/jeeflow-csharp",
+        "url": "https://github.com/mldong/jeeflow-csharp",
+        "description": "轻量 C#工作流引擎——零框架依赖、DDD 充血模型。",
+        "language": "C#"
+      }
+    ]
+  },
+  {
+    "query": "\"font metric\" MoonBit in:name,description,readme",
+    "url": "https://api.github.com/search/repositories?q=%22font+metric%22+MoonBit+in%3Aname%2Cdescription%2Creadme&per_page=30",
+    "total_count": 7,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "OverflowCat/tiago",
+        "url": "https://github.com/OverflowCat/tiago",
+        "description": null,
+        "language": "MoonBit"
+      },
+      {
+        "repo": "bobzhang/prawn.mbt",
+        "url": "https://github.com/bobzhang/prawn.mbt",
+        "description": "Prawn (the Ruby PDF library) for MoonBit",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "Lxxbv/moon-typst",
+        "url": "https://github.com/Lxxbv/moon-typst",
+        "description": "Typst 排版标记解析与 SVG/HTML 渲染引擎",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "moonbit-community/moon_cosmic",
+        "url": "https://github.com/moonbit-community/moon_cosmic",
+        "description": null,
+        "language": "MoonBit"
+      },
+      {
+        "repo": "IlyaBSenko/Git-Langs",
+        "url": "https://github.com/IlyaBSenko/Git-Langs",
+        "description": "A small script in Python to show all the languages Github supports with their respected Colors, Types, and Extensions (if included). ",
+        "language": "YAML"
+      },
+      {
+        "repo": "areyoulockedin/langs",
+        "url": "https://github.com/areyoulockedin/langs",
+        "description": null,
+        "language": "TypeScript"
+      },
+      {
+        "repo": "drewbitt/starred",
+        "url": "https://github.com/drewbitt/starred",
+        "description": null,
+        "language": null
+      }
+    ]
+  },
+  {
+    "query": "\"TeX font metric\" MoonBit in:name,description,readme",
+    "url": "https://api.github.com/search/repositories?q=%22TeX+font+metric%22+MoonBit+in%3Aname%2Cdescription%2Creadme&per_page=30",
+    "total_count": 0,
+    "incomplete_results": false,
+    "items": []
+  },
+  {
+    "query": "MoonTFM in:name",
+    "error": "HTTP Error 403: rate limit exceeded"
+  }
+]

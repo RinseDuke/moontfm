@@ -1,0 +1,135 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "RinseDuke/moontfm"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn diff(Font, Font) -> Result[Difference, Array[Diagnostic]]
+
+pub fn diff_json(Bytes, Bytes) -> String
+
+pub fn fixed_to_double(Int) -> Double
+
+pub fn glyph(Font, Int) -> Glyph?
+
+pub fn glyph_json(Bytes, Int) -> String
+
+pub fn inspect_json(Bytes) -> String
+
+pub fn parse(Bytes) -> Result[Font, Array[Diagnostic]]
+
+pub fn validate(Font) -> Array[Diagnostic]
+
+// Errors
+
+// Types and methods
+pub(all) struct Character {
+  code : Int
+  byte_offset : Int
+  width_index : Int
+  height_index : Int
+  depth_index : Int
+  italic_index : Int
+  tag : Int
+  remainder : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Character::equal(Self, Self) -> Bool
+pub fn Character::not_equal(Self, Self) -> Bool
+pub fn Character::to_json(Self) -> Json
+pub fn Character::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Diagnostic {
+  code : String
+  severity : String
+  byte_offset : Int
+  table : String
+  message : String
+  character_code : Int?
+  expected_min : Int?
+  expected_max : Int?
+  actual : Int?
+} derive(Eq, @debug.Debug)
+pub fn Diagnostic::equal(Self, Self) -> Bool
+pub fn Diagnostic::not_equal(Self, Self) -> Bool
+pub fn Diagnostic::to_json(Self) -> Json
+pub fn Diagnostic::to_repr(Self) -> @debug.Repr
+pub impl ToJson for Diagnostic
+
+pub(all) struct Difference {
+  metrics_equal : Bool
+  design_size_before : Int
+  design_size_after : Int
+  glyph_changes : Array[GlyphChange]
+  other_changes : Array[String]
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Difference::equal(Self, Self) -> Bool
+pub fn Difference::not_equal(Self, Self) -> Bool
+pub fn Difference::to_json(Self) -> Json
+pub fn Difference::to_repr(Self) -> @debug.Repr
+
+pub struct Font {
+  lengths : Array[Int]
+  header : Array[Int]
+  characters : Array[Character]
+  widths : Array[Int]
+  heights : Array[Int]
+  depths : Array[Int]
+  italics : Array[Int]
+  lig_kern : Array[Record]
+  kerns : Array[Int]
+  extensibles : Array[Record]
+  parameters : Array[Int]
+} derive(ToJson, @debug.Debug)
+pub fn Font::to_json(Self) -> Json
+pub fn Font::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Glyph {
+  character_code : Int
+  exists : Bool
+  metrics : Metrics?
+} derive(Eq, @debug.Debug)
+pub fn Glyph::equal(Self, Self) -> Bool
+pub fn Glyph::not_equal(Self, Self) -> Bool
+pub fn Glyph::to_json(Self) -> Json
+pub fn Glyph::to_repr(Self) -> @debug.Repr
+pub impl ToJson for Glyph
+
+pub(all) struct GlyphChange {
+  character_code : Int
+  kind : String
+  before : Metrics?
+  after : Metrics?
+} derive(Eq, @debug.Debug)
+pub fn GlyphChange::equal(Self, Self) -> Bool
+pub fn GlyphChange::not_equal(Self, Self) -> Bool
+pub fn GlyphChange::to_json(Self) -> Json
+pub fn GlyphChange::to_repr(Self) -> @debug.Repr
+pub impl ToJson for GlyphChange
+
+pub(all) struct Metrics {
+  width : Int
+  height : Int
+  depth : Int
+  italic : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Metrics::equal(Self, Self) -> Bool
+pub fn Metrics::not_equal(Self, Self) -> Bool
+pub fn Metrics::to_json(Self) -> Json
+pub fn Metrics::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Record {
+  a : Int
+  b : Int
+  c : Int
+  d : Int
+} derive(Eq, ToJson, @debug.Debug)
+pub fn Record::equal(Self, Self) -> Bool
+pub fn Record::not_equal(Self, Self) -> Bool
+pub fn Record::to_json(Self) -> Json
+pub fn Record::to_repr(Self) -> @debug.Repr
+
+// Type aliases
+
+// Traits

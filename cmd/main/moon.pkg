@@ -1,0 +1,14 @@
+import {
+  "RinseDuke/moontfm",
+}
+
+supported_targets = "js"
+
+options(
+  link: {
+    "js": {
+      "exports": [ "inspect_json", "glyph_json", "diff_json" ],
+      "format": "esm",
+    },
+  },
+)

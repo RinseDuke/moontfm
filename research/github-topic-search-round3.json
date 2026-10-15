@@ -1,0 +1,246 @@
+[
+  {
+    "query": "TFM in:name,description,readme language:MoonBit",
+    "url": "https://api.github.com/search/repositories?q=TFM+in%3Aname%2Cdescription%2Creadme+language%3AMoonBit&per_page=20",
+    "total_count": 0,
+    "incomplete_results": false,
+    "items": []
+  },
+  {
+    "query": "BDF in:name,description,readme language:MoonBit",
+    "url": "https://api.github.com/search/repositories?q=BDF+in%3Aname%2Cdescription%2Creadme+language%3AMoonBit&per_page=20",
+    "total_count": 2,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "bikallem/freetype",
+        "url": "https://github.com/bikallem/freetype",
+        "description": "Moonbit port of freetype",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "peng-jun21/moonbit-edf",
+        "url": "https://github.com/peng-jun21/moonbit-edf",
+        "description": "MoonEDF：保留事件时间和多采样率的数据交换库",
+        "language": "MoonBit"
+      }
+    ]
+  },
+  {
+    "query": "font language:MoonBit",
+    "url": "https://api.github.com/search/repositories?q=font+language%3AMoonBit&per_page=20",
+    "total_count": 27,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "mizchi/font",
+        "url": "https://github.com/mizchi/font",
+        "description": "moonbit font rendering for ttf/otf/ttc/otc/woff/woff2",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/moonbit-fonts",
+        "url": "https://github.com/gmlewis/moonbit-fonts",
+        "description": "This is an experimental package to manipulate open source fonts with MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-r",
+        "url": "https://github.com/gmlewis/mbt-fonts-r",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-i",
+        "url": "https://github.com/gmlewis/mbt-fonts-i",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-n",
+        "url": "https://github.com/gmlewis/mbt-fonts-n",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-t",
+        "url": "https://github.com/gmlewis/mbt-fonts-t",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-b",
+        "url": "https://github.com/gmlewis/mbt-fonts-b",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-p",
+        "url": "https://github.com/gmlewis/mbt-fonts-p",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-k",
+        "url": "https://github.com/gmlewis/mbt-fonts-k",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-e",
+        "url": "https://github.com/gmlewis/mbt-fonts-e",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-m",
+        "url": "https://github.com/gmlewis/mbt-fonts-m",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-u",
+        "url": "https://github.com/gmlewis/mbt-fonts-u",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-y",
+        "url": "https://github.com/gmlewis/mbt-fonts-y",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-c",
+        "url": "https://github.com/gmlewis/mbt-fonts-c",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-l",
+        "url": "https://github.com/gmlewis/mbt-fonts-l",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-h",
+        "url": "https://github.com/gmlewis/mbt-fonts-h",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-q",
+        "url": "https://github.com/gmlewis/mbt-fonts-q",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-z",
+        "url": "https://github.com/gmlewis/mbt-fonts-z",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-f",
+        "url": "https://github.com/gmlewis/mbt-fonts-f",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "gmlewis/mbt-fonts-s",
+        "url": "https://github.com/gmlewis/mbt-fonts-s",
+        "description": "A collection of open source fonts converted to MoonBit.",
+        "language": "MoonBit"
+      }
+    ]
+  },
+  {
+    "query": "tex language:MoonBit",
+    "url": "https://api.github.com/search/repositories?q=tex+language%3AMoonBit&per_page=20",
+    "total_count": 10,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "FrozenLemonTee/TextEditor",
+        "url": "https://github.com/FrozenLemonTee/TextEditor",
+        "description": "Demo app for LunarEvent and LunarTUI event loop integration",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "moonbit-community/text_document",
+        "url": "https://github.com/moonbit-community/text_document",
+        "description": null,
+        "language": "MoonBit"
+      },
+      {
+        "repo": "Texas-png/Texas",
+        "url": "https://github.com/Texas-png/Texas",
+        "description": null,
+        "language": "MoonBit"
+      },
+      {
+        "repo": "xianjuanzi/text_counter",
+        "url": "https://github.com/xianjuanzi/text_counter",
+        "description": "MoonBit简易文本计数器，MoonBit黑客松参赛项目",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "GuoXBQ-Q/textwrap.mbt",
+        "url": "https://github.com/GuoXBQ-Q/textwrap.mbt",
+        "description": "MoonBit 文本换行与排版工具集",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "lexchb/moonbit-Texteditor",
+        "url": "https://github.com/lexchb/moonbit-Texteditor",
+        "description": "基于月兔语言的文本编辑器",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "BigOrangeQWQ/text.mbt",
+        "url": "https://github.com/BigOrangeQWQ/text.mbt",
+        "description": null,
+        "language": "MoonBit"
+      },
+      {
+        "repo": "moonbit-community/text.mbt",
+        "url": "https://github.com/moonbit-community/text.mbt",
+        "description": null,
+        "language": "MoonBit"
+      },
+      {
+        "repo": "xkmxkm68/MoonTextGen",
+        "url": "https://github.com/xkmxkm68/MoonTextGen",
+        "description": "这是一个基于 MoonBit 的轻量级、可复现文本生成引擎，使用 n-gram / Markov 统计从内置语料里学习 token 转移，支持英文占位文本、中文占位文本和偏混淆输出，适合做测试数据、占位文案和轻量文本扰动。",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "berlysia/structured-text-data-converter",
+        "url": "https://github.com/berlysia/structured-text-data-converter",
+        "description": null,
+        "language": "MoonBit"
+      }
+    ]
+  },
+  {
+    "query": "\"TeX font\" in:name,description,readme MoonBit",
+    "url": "https://api.github.com/search/repositories?q=%22TeX+font%22+in%3Aname%2Cdescription%2Creadme+MoonBit&per_page=20",
+    "total_count": 0,
+    "incomplete_results": false,
+    "items": []
+  },
+  {
+    "query": "AppleDouble in:name,description,readme MoonBit",
+    "url": "https://api.github.com/search/repositories?q=AppleDouble+in%3Aname%2Cdescription%2Creadme+MoonBit&per_page=20",
+    "total_count": 0,
+    "incomplete_results": false,
+    "items": []
+  },
+  {
+    "query": "\"MoonTFM\"",
+    "url": "https://api.github.com/search/repositories?q=%22MoonTFM%22&per_page=20",
+    "total_count": 0,
+    "incomplete_results": false,
+    "items": []
+  }
+]

@@ -1,0 +1,69 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install pinned MoonBit (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ./scripts/bootstrap.ps1
+          "$env:MOON_HOME/bin" >> $env:GITHUB_PATH
+          "MOON_HOME=$env:MOON_HOME" >> $env:GITHUB_ENV
+      - name: Install pinned MoonBit (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(tr -d '\r\n' < moon-toolchain)
+          mkdir -p .tools/moon
+          curl --fail --location --retry 3 "https://cli.moonbitlang.com/binaries/$version/moonbit-linux-x86_64.tar.gz" -o .tools/moonbit-linux-x86_64.tar.gz
+          curl --fail --location --retry 3 "https://cli.moonbitlang.com/binaries/$version/moonbit-linux-x86_64.tar.gz.sha256" -o .tools/archive.sha256
+          (cd .tools && sha256sum --check archive.sha256)
+          tar -xzf .tools/moonbit-linux-x86_64.tar.gz -C .tools/moon
+          curl --fail --location --retry 3 "https://cli.moonbitlang.com/cores/core-$version.tar.gz" -o .tools/core.tar.gz
+          tar -xzf .tools/core.tar.gz -C .tools/moon/lib
+          export MOON_HOME="$PWD/.tools/moon"
+          export PATH="$MOON_HOME/bin:$PATH"
+          (cd "$MOON_HOME/lib/core" && moon bundle --target js --warn-list -a)
+          echo "$MOON_HOME/bin" >> "$GITHUB_PATH"
+          echo "MOON_HOME=$MOON_HOME" >> "$GITHUB_ENV"
+      - name: Version and format
+        run: |
+          moon version --all
+          moon fmt --check
+      - name: Check
+        run: moon check --target js --deny-warn
+      - name: Build
+        run: moon build --target js --release --deny-warn
+      - name: MoonBit tests
+        run: moon test --target js --deny-warn
+      - name: Fixtures and integration tests
+        run: |
+          node scripts/fixtures.mjs
+          node --test tests/*.test.mjs
+      - name: Install TeXware (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y texlive-binaries
+      - name: TeXware cross-check (Linux)
+        if: runner.os == 'Linux'
+        run: node scripts/crosscheck.mjs
+      - uses: actions/upload-artifact@v4
+        if: runner.os == 'Linux' && always()
+        with:
+          name: texware-crosscheck
+          path: artifacts/crosscheck/summary.json

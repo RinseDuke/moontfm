@@ -1,0 +1,87 @@
+[
+  {
+    "query": "\"Intel HEX\" MoonBit",
+    "error": "<urlopen error [WinError 10060] 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。>"
+  },
+  {
+    "query": "ihex MoonBit",
+    "url": "https://api.github.com/search/repositories?q=ihex+MoonBit&per_page=10",
+    "total_count": 0,
+    "incomplete_results": false,
+    "items": []
+  },
+  {
+    "query": "srecord MoonBit",
+    "url": "https://api.github.com/search/repositories?q=srecord+MoonBit&per_page=10",
+    "total_count": 1,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "SongYZZZ/moon-firmware",
+        "url": "https://github.com/SongYZZZ/moon-firmware",
+        "description": "MoonBit MCU firmware release validation CLI: HEX/S-Record/BIN, Cortex-M gates and flash-page plans",
+        "language": "MoonBit"
+      }
+    ]
+  },
+  {
+    "query": "touchstone MoonBit",
+    "url": "https://api.github.com/search/repositories?q=touchstone+MoonBit&per_page=10",
+    "total_count": 1,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "guolei-dev/moonbit-touchstone",
+        "url": "https://github.com/guolei-dev/moonbit-touchstone",
+        "description": "MoonTouchstone——MoonBit RF 网络数据变换与采样频段判定",
+        "language": "MoonBit"
+      }
+    ]
+  },
+  {
+    "query": "firmware language:MoonBit",
+    "url": "https://api.github.com/search/repositories?q=firmware+language%3AMoonBit&per_page=10",
+    "total_count": 4,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "SongYZZZ/moon-firmware",
+        "url": "https://github.com/SongYZZZ/moon-firmware",
+        "description": "MoonBit MCU firmware release validation CLI: HEX/S-Record/BIN, Cortex-M gates and flash-page plans",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "Zzqy-yi/moonbit-firmware-image",
+        "url": "https://github.com/Zzqy-yi/moonbit-firmware-image",
+        "description": "Validated Intel HEX and Motorola S-record firmware image toolkit for MoonBit",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "Trylaney/moon-uf2",
+        "url": "https://github.com/Trylaney/moon-uf2",
+        "description": "UF2 firmware codec and validation utilities for MoonBit",
+        "language": "MoonBit"
+      },
+      {
+        "repo": "ssjssj183312-jpg/MoonUF2",
+        "url": "https://github.com/ssjssj183312-jpg/MoonUF2",
+        "description": "UF2 firmware validation and conversion tool in MoonBit. Planning stage.",
+        "language": "MoonBit"
+      }
+    ]
+  },
+  {
+    "query": "\"MoonHex\"",
+    "url": "https://api.github.com/search/repositories?q=%22MoonHex%22&per_page=10",
+    "total_count": 1,
+    "incomplete_results": false,
+    "items": [
+      {
+        "repo": "andrey-moura/MoonHex",
+        "url": "https://github.com/andrey-moura/MoonHex",
+        "description": "A hex editor for romhackers",
+        "language": "C++"
+      }
+    ]
+  }
+]

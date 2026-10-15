@@ -1,0 +1,17 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "RinseDuke/moontfm/cmd/main"
+
+// Values
+pub fn diff_json(Bytes, Bytes) -> String
+
+pub fn glyph_json(Bytes, Int) -> String
+
+pub fn inspect_json(Bytes) -> String
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
