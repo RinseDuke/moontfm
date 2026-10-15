@@ -30,6 +30,7 @@ jobs:
         run: |
           set -euo pipefail
           version=$(tr -d '\r\n' < moon-toolchain)
+          version=${version//+/%2B}
           mkdir -p .tools/moon
           curl --fail --location --retry 3 "https://cli.moonbitlang.com/binaries/$version/moonbit-linux-x86_64.tar.gz" -o .tools/moonbit-linux-x86_64.tar.gz
           curl --fail --location --retry 3 "https://cli.moonbitlang.com/binaries/$version/moonbit-linux-x86_64.tar.gz.sha256" -o .tools/archive.sha256
