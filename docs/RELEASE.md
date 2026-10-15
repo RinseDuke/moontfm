@@ -10,7 +10,7 @@
 
 ## Mooncakes
 
-本仓库使用当前工具链的 `moon.mod` / `moon.pkg` 格式。`moon publish --dry-run` 只能记录本地预检，不是发布成功。真正发布需要有 RinseDuke 命名空间权限的 Mooncakes 登录会话；发布前以 `moon publish --help` 和实际工具反馈为准。
+本仓库使用当前工具链的 `moon.mod` / `moon.pkg` 格式。`moon package --list` 和 `moon package` 已通过，源码包位于 `_build/publish/RinseDuke-moontfm-0.1.0.zip`。`moon publish --dry-run` 在本机因未登录而停止，不代表已完成发布预检。真正发布需要有 RinseDuke 命名空间权限的 Mooncakes 登录会话；发布前以 `moon publish --help` 和实际工具反馈为准。
 
 当前没有已发布包的验证证据，README 不提供未经核验的 Mooncakes 安装命令。登录或权限不足时保留准备好的源代码和明确待办，不代替用户创建账号或接受服务条款。
 

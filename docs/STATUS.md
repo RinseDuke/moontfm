@@ -22,8 +22,8 @@
 ## 外部交付状态
 
 - 公开仓库：[RinseDuke/moontfm](https://github.com/RinseDuke/moontfm) 已创建并推送首版。
-- 远端 CI：Windows 已通过；Linux 安装步骤已补全版本号 URL 编码与工具执行权限，等待复验。
-- Mooncakes：已准备版本 0.1.0 的模块元数据，`moon package --list` 本地检查通过；`moon publish --dry-run` 因缺少 credentials.json 要求登录，尚未发布。不得把本地模块名表述为已发布包。
+- 远端 CI：Windows 与 Linux 全部通过，包含格式、严格检查、release 构建、两组测试，以及 Linux 的原创 PL/TeXware 对照。[成功运行](https://github.com/RinseDuke/moontfm/actions/runs/38763077187) 对应代码提交 `7a85d29708f0d3359983da3090e6e9fa93806215`。
+- Mooncakes：已准备版本 0.1.0 的模块元数据，`moon package --list` 与 `moon package` 本地检查和打包通过；`moon publish --dry-run` 因缺少 credentials.json 要求登录，尚未发布。不得把本地模块名表述为已发布包。
 - 外部独立审查：任务说明已准备，尚未收到 Claude/GLM 的独立报告。
 - 赛事报名/验收：尚无已提交、已接收的证据。须通过参赛者可访问的官方入口完成并保留回执。
 

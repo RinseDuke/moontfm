@@ -33,6 +33,12 @@ node scripts/crosscheck.mjs /path/to/tftopl /path/to/pltotf /path/to/cm-tfm
 
 CTAN 语料下载入口与归档哈希见样例说明。CI 在 Linux 中安装发行版的 `texlive-binaries`，只执行原创 PL 对照，避免真实字体下载影响基本验证。Windows 与 Linux 都执行相同的 MoonBit 和 Node 测试。远端 CI 状态单独记录，不能用本地通过代替远端成功。
 
+## 远端 CI
+
+[GitHub Actions 成功运行](https://github.com/RinseDuke/moontfm/actions/runs/38763077187)，代码提交 `7a85d29708f0d3359983da3090e6e9fa93806215`。Windows 与 Ubuntu 均完成固定工具链安装、格式检查、严格编译、5 个 MoonBit 测试与 31 个 Node/CLI 测试；Ubuntu 另完成原创 PL 的 TeXware 交叉核验并上传报告。运行使用 Node.js 24.21.0。
+
+Linux 安装已按实际运行修正版本号中加号的 URL 编码，并为官方归档内的工具设置执行权限。仓库最后的验证记录更新只涉及文档，沿用上述代码和工作流的成功证据。
+
 ## 未完成的独立证据
 
 本轮由实现者完成规范复核与自动测试，没有冒充 Claude/GLM 的独立审查。外部审查仍可按 `REVIEW_BRIEF.md` 执行。没有证明完整连字执行语义和渲染兼容性，没有进行性能基准或用户规模统计。

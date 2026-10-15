@@ -6,7 +6,7 @@ MoonTFM 是使用 MoonBit 实现的经典 TeX 字体度量文件（`.tfm`）解�
 
 公开仓库：[RinseDuke/moontfm](https://github.com/RinseDuke/moontfm)。
 
-当前状态：首版已在 Windows 上完成实现、严格编译和测试，并与 TeXware 交叉核验。核心逻辑全部使用 MoonBit，CLI 的 Node.js 层只负责参数、文件读取、文本展示和退出码。日常运行不需要安装 TeX，也不需要联网。远端 CI、Mooncakes 发布与赛事提交状态见 [当前进度](docs/STATUS.md)。
+当前状态：首版已在 Windows 和 Linux 上完成严格编译和测试，并与 TeXware 交叉核验。核心逻辑全部使用 MoonBit，CLI 的 Node.js 层只负责参数、文件读取、文本展示和退出码。日常运行不需要安装 TeX，也不需要联网。远端 CI、Mooncakes 发布与赛事提交状态见 [当前进度](docs/STATUS.md)。
 
 ## 安装和构建
 
