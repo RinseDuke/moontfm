@@ -124,6 +124,66 @@ test('boundary controls are not treated as ligatures or kern records', () => {
   assert(has(inspect(fixture({ lig: [[255, 250, 0, 1]] })), 'INDEX_OUT_OF_RANGE'));
 });
 
+test('a character using the right-boundary declaration must have a valid effective entry', () => {
+  const b = fixture({ chars: [[1, 0x10, 1, 0]],
+    lig: [[255, 250, 255, 255], [128, 65, 128, 0]], kerns: [-1] });
+  const r = inspect(b);
+  assert.equal(r.status, 'invalid');
+  assert.equal(r.diagnostics.length, 1);
+  assert.deepEqual(r.diagnostics[0], {
+    code: 'INDEX_OUT_OF_RANGE', severity: 'error', byte_offset: 62, table: 'lig_kern',
+    message: 'Index 65535 outside table of length 2', character_code: 65,
+    expected_min: 0, expected_max: 1, actual: 65535,
+  });
+  assert.equal(glyph(b, 65).status, 'invalid');
+  assert.deepEqual(diff(samples['minimal.tfm'], b).data, { input: 'after' });
+});
+
+test('the same first boundary record may be only a declaration or also a valid character entry', () => {
+  const lig = [[255, 250, 0, 1], [128, 250, 128, 0]];
+  assert.equal(inspect(fixture({ lig, kerns: [-1] })).status, 'ok');
+  assert.equal(inspect(fixture({ chars: [[1, 0x10, 1, 0]], lig, kerns: [-1] })).status, 'ok');
+  // A missing character's unused tag is not a program entry.
+  assert.equal(inspect(fixture({ chars: [[0, 0, 1, 0]], lig: [[255, 250, 255, 255], [128, 250, 128, 0]], kerns: [-1] })).status, 'ok');
+});
+
+test('entry restarts use both address bytes and do not duplicate generic record diagnostics', () => {
+  for (const [skip, high, low, actual] of [[129, 0, 2, 2], [255, 0, 2, 2], [129, 1, 0, 256]]) {
+    const b = fixture({ chars: [[1, 0x10, 1, 0]],
+      lig: [[skip, 250, high, low], [128, 65, 128, 0]], kerns: [-1] });
+    const ds = inspect(b).diagnostics;
+    assert.equal(ds.length, 1);
+    assert.equal(ds[0].character_code, 65);
+    assert.equal(ds[0].byte_offset, 62);
+    assert.equal(ds[0].actual, actual);
+  }
+  // A long program starts beyond the one-byte remainder range.
+  const lig = Array.from({ length: 257 }, () => [128, 65, 128, 0]);
+  lig[0] = [255, 250, 1, 0];
+  assert.equal(inspect(fixture({ chars: [[1, 0x10, 1, 0]], lig, kerns: [-1] })).status, 'ok');
+});
+
+test('left boundary pointers and shared one-record boundary declarations remain bounded', () => {
+  for (const chars of [[[1, 0x10, 0, 0]], [[1, 0x10, 1, 0]]]) {
+    assert.equal(inspect(fixture({ chars, lig: [[255, 250, 0, 0]] })).status, 'ok');
+    const bad = inspect(fixture({ chars, lig: [[255, 250, 0, 1]] }));
+    assert.equal(bad.status, 'invalid');
+    assert.equal(bad.diagnostics.length, 1);
+  }
+  const valid = [[255, 250, 0, 1], [128, 250, 128, 0], [255, 0, 0, 1]];
+  assert.equal(inspect(fixture({ chars: [[1, 0x10, 1, 0]], lig: valid, kerns: [-1] })).status, 'ok');
+  valid[2] = [255, 0, 0, 3];
+  assert(has(inspect(fixture({ chars: [[1, 0x10, 1, 0]], lig: valid, kerns: [-1] })), 'INDEX_OUT_OF_RANGE'));
+});
+
+test('stop=128 is an operation, whereas a greater skip redirects only once at entry', () => {
+  const b = fixture({ chars: [[1, 0x10, 1, 0]], lig: [[128, 65, 0, 65]] });
+  assert.equal(inspect(b).status, 'ok');
+  // At the redirected location a control record halts; it is not another entry restart.
+  const controls = [[129, 0, 0, 1], [129, 0, 0, 0]];
+  assert.equal(inspect(fixture({ chars: [[1, 0x10, 1, 0]], lig: controls })).status, 'ok');
+});
+
 test('missing ligature operands and results are diagnosed', () => {
   const r = inspect(fixture({ lig: [[128, 66, 0, 67]] }));
   assert.equal(r.diagnostics.filter(d => d.code === 'MISSING_CHARACTER').length, 2);

@@ -45,6 +45,14 @@ test('invalid files return two and expose error locations and index ranges', () 
     expected_min: 0, expected_max: 1, actual: 250,
   });
   assert.equal(cli('inspect', 'fixtures/truncated.tfm').status, 2);
+  for (const args of [['validate', 'fixtures/bad-boundary-entry.tfm'],
+    ['glyph', 'fixtures/bad-boundary-entry.tfm', '65'],
+    ['diff', 'fixtures/minimal.tfm', 'fixtures/bad-boundary-entry.tfm']]) {
+    const boundary = cli(...args, '--json');
+    assert.equal(boundary.status, 2);
+    assert.equal(report(boundary).diagnostics[0].actual, 65535);
+    assert.equal(report(boundary).diagnostics[0].character_code, 65);
+  }
 });
 
 test('missing glyphs are successful queries with explicit exists=false', () => {

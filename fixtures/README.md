@@ -1,12 +1,13 @@
 # 测试样例与来源
 
-本目录的 9 个二进制 TFM 由 `scripts/fixtures.mjs` 独立构造，使用 MIT 许可证；不是从第三方字体裁剪或转换而来。运行 `node scripts/fixtures.mjs` 可确定性重建。测试中的期望值直接根据手工设定的字段与数值断言，不由 MoonTFM 自己生成。
+本目录的 10 个二进制 TFM 由 `scripts/fixtures.mjs` 独立构造，使用 MIT 许可证；不是从第三方字体裁剪或转换而来。运行 `node scripts/fixtures.mjs` 可确定性重建。测试中的期望值直接根据手工设定的字段与数值断言，不由 MoonTFM 自己生成。
 
 | 文件 | 用途 |
 |---|---|
 | minimal.tfm | 60 字节，字符 65，10pt，宽度原始值 524288，高度 734003 |
 | wider.tfm | 仅将字符宽度改为 655360 |
 | bad-index.tfm | 仅将字符宽度索引改为 250，期望字节 32 越界诊断 |
+| bad-boundary-entry.tfm | 字符 65 引用首条右边界声明作为入口，实际地址 65535 超出 2 条指令范围，期望字节 62 诊断 |
 | truncated.tfm | minimal 最后缺少一字节，期望 byte_offset=59 |
 | empty.tfm | bc=1、ec=0 的零字符范围 |
 | zero-width.tfm | 字符存在，但引用的非零索引宽度值为零 |

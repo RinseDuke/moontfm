@@ -75,6 +75,8 @@ pub fn validate(font : Font) -> Array[Diagnostic] {
       )
     }
   }
+  let nl = font.lig_kern.length()
+  let character_entries = Array::make(nl, false)
   for ch in font.characters {
     if ch.width_index == 0 {
       continue
@@ -118,6 +120,25 @@ pub fn validate(font : Font) -> Array[Diagnostic] {
               Some(ch.code),
             ),
           )
+        } else {
+          character_entries[ch.remainder] = true
+          let entry = font.lig_kern[ch.remainder]
+          // At a character entry, every skip > 128 redirects once, including
+          // a first skip=255 record that also declares the right boundary.
+          if entry.a > 128 {
+            let target = entry.c * 256 + entry.d
+            if target >= nl {
+              out.push(
+                reference_error(
+                  table_start(font, 8) + ch.remainder * 4 + 2,
+                  "lig_kern",
+                  target,
+                  nl,
+                  Some(ch.code),
+                ),
+              )
+            }
+          }
         }
       2 =>
         if !exists(font, ch.remainder) {
@@ -170,7 +191,6 @@ pub fn validate(font : Font) -> Array[Diagnostic] {
       _ => ()
     }
   }
-  let nl = font.lig_kern.length()
   let right_boundary = if nl > 0 && font.lig_kern[0].a == 255 {
     font.lig_kern[0].b
   } else {
@@ -180,10 +200,11 @@ pub fn validate(font : Font) -> Array[Diagnostic] {
     let r = font.lig_kern[i]
     let p = table_start(font, 8) + i * 4
     if r.a > 128 {
-      // First skip=255 only declares right boundary; last may also declare left.
+      // A first skip=255 declaration has no address unless used as an entry.
+      // Character entries were checked above, with their character context.
       if i != 0 || r.a != 255 || i == nl - 1 {
         let target = r.c * 256 + r.d
-        if target >= nl {
+        if target >= nl && !character_entries[i] {
           out.push(reference_error(p + 2, "lig_kern", target, nl, None))
         }
       }

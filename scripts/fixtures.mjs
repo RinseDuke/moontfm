@@ -29,6 +29,8 @@ export function fixtures() {
     'minimal.tfm': base,
     'wider.tfm': fixture({ widths: [0, 655360] }),
     'bad-index.tfm': bad,
+    'bad-boundary-entry.tfm': fixture({ chars: [[1, 0x10, 1, 0]],
+      lig: [[255, 250, 255, 255], [128, 65, 128, 0]], kerns: [-1] }),
     'truncated.tfm': base.subarray(0, base.length - 1),
     'empty.tfm': fixture({ bc: 1, chars: [] }),
     'zero-width.tfm': fixture({ widths: [0, 0] }),
@@ -42,5 +44,5 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const dest = new URL('../fixtures/', import.meta.url);
   mkdirSync(dest, { recursive: true });
   for (const [name, bytes] of Object.entries(fixtures())) writeFileSync(new URL(name, dest), bytes);
-  console.log('Generated 9 original TFM fixtures.');
+  console.log(`Generated ${Object.keys(fixtures()).length} original TFM fixtures.`);
 }

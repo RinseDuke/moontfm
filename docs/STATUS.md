@@ -2,6 +2,8 @@
 
 更新日期：2026-10-15。
 
+2026-10-16 修复验证补充：lig/kern 字符入口的实际跳转地址检查、边界组合回归与工具链/标准库版本一致性检查，详见 [本轮证据](validation/fixes-2026-10-16.md)。本轮本地为 5 个 MoonBit 测试、42 个 Node/CLI 测试，另有 8 组 TeXware 边界对照。下文保留 10 月 15 日基线；MEMORY.md 的已完成和关键决策由用户维护。
+
 ## 已实现
 
 - 纯 MoonBit 的经典 8 位 TFM 全表解析、结构和引用校验。
@@ -23,7 +25,7 @@
 
 - 公开仓库：[RinseDuke/moontfm](https://github.com/RinseDuke/moontfm) 已创建并推送首版。
 - 远端 CI：Windows 与 Linux 全部通过，包含格式、严格检查、release 构建、两组测试，以及 Linux 的原创 PL/TeXware 对照。[成功运行](https://github.com/RinseDuke/moontfm/actions/runs/38763077187) 对应代码提交 `7a85d29708f0d3359983da3090e6e9fa93806215`。
-- Mooncakes：已准备版本 0.1.0 的模块元数据，`moon package --list` 与 `moon package` 本地检查和打包通过；`moon publish --dry-run` 因缺少 credentials.json 要求登录，尚未发布。不得把本地模块名表述为已发布包。
+- Mooncakes：用户要求暂缓，不进行登录或发布。已准备版本 0.1.0 的模块元数据，`moon package --list` 与 `moon package` 本地检查和打包通过；此前 `moon publish --dry-run` 因缺少 credentials.json 要求登录，尚未发布。不得把本地模块名表述为已发布包。
 - 外部独立审查：任务说明已准备，尚未收到 Claude/GLM 的独立报告。
 - 赛事报名/验收：尚无已提交、已接收的证据。须通过参赛者可访问的官方入口完成并保留回执。
 

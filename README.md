@@ -22,6 +22,8 @@ moon build --target js --release --deny-warn
 
 bootstrap 仅将工具链安装到忽略的 `.tools/moon/`，并为当前 PowerShell 进程设置 `MOON_HOME` 和 `PATH`，不修改用户 PATH 或配置文件。新开终端后重新执行脚本即可复用已有安装。首次安装需要联网；固定版本在上游的保留时间有限，若下载失效须重新验证并更新版本。
 
+复用前会核对编译器和标准库的完整版本。标准库版本不匹配时，先解压并检查新版本，再替换旧目录，避免混入旧源码或构建缓存；错误或损坏归档不会移除现有标准库。
+
 其他系统可以使用 [MoonBit 官方工具链](https://www.moonbitlang.com/download/)，安装与 `moon-toolchain` 一致的版本；Linux 安装步骤也可参考 [CI](.github/workflows/ci.yml)。项目没有额外 Mooncakes 或 npm 依赖，无需执行 `npm install`。
 
 ## 四步演示
@@ -85,6 +87,8 @@ MoonBit 单元测试验证库 API；Node 测试验证编译后的 MoonBit 核心
 
 - [API 与 JSON 契约](docs/API.md)
 - [当前进度与剩余交付](docs/STATUS.md)
+- [项目记忆与用户待确认事项](MEMORY.md)
+- [2026-10-16 修复验证](docs/validation/fixes-2026-10-16.md)
 - [验证记录与复现方法](docs/VALIDATION.md)
 - [样例来源与许可](fixtures/README.md)
 - [申报书](PROPOSAL.md)、[选题研究](docs/TOPIC_RESEARCH.md)、[设计](docs/DESIGN.md)、[验收计划](docs/ACCEPTANCE_PLAN.md)

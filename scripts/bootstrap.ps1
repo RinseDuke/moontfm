@@ -1,4 +1,5 @@
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot 'toolchain-state.ps1')
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $toolchainVersion = (Get-Content -Raw (Join-Path $projectRoot 'moon-toolchain')).Trim()
 $toolRoot = Join-Path $projectRoot '.tools'
@@ -14,7 +15,8 @@ function Download-File([string]$uri, [string]$destination) {
 
 $installed = $false
 if (Test-Path -LiteralPath $compilerCommand) {
-    $installed = (& $compilerCommand -v) -match [Regex]::Escape($toolchainVersion)
+    $compilerOutput = (& $compilerCommand -v 2>&1 | Out-String)
+    $installed = ($LASTEXITCODE -eq 0) -and (Test-MoonBitCompilerVersion $compilerOutput $toolchainVersion)
 }
 if (-not $installed) {
     New-Item -ItemType Directory -Force -Path $toolRoot | Out-Null
@@ -28,10 +30,15 @@ if (-not $installed) {
     }
     Expand-Archive -LiteralPath $archive -DestinationPath $installRoot -Force
 }
-if (-not (Test-Path -LiteralPath (Join-Path $installRoot 'lib/core/moon.mod'))) {
+$compilerOutput = (& $compilerCommand -v 2>&1 | Out-String)
+if ($LASTEXITCODE -ne 0 -or -not (Test-MoonBitCompilerVersion $compilerOutput $toolchainVersion)) {
+    throw "Installed compiler does not match required version $toolchainVersion"
+}
+$coreDirectory = Join-Path $installRoot 'lib/core'
+if ((Get-MoonBitCoreVersion $coreDirectory) -ne $toolchainVersion) {
     $coreArchive = Join-Path $toolRoot 'core.zip'
     Download-File "https://cli.moonbitlang.com/cores/core-$downloadVersion.zip" $coreArchive
-    Expand-Archive -LiteralPath $coreArchive -DestinationPath (Join-Path $installRoot 'lib') -Force
+    Install-MoonBitCore $coreArchive $installRoot $toolchainVersion
 }
 $env:MOON_HOME = $installRoot
 $env:PATH = "$(Join-Path $installRoot 'bin');$env:PATH"

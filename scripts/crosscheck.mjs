@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import * as engine from '../_build/js/release/build/cmd/main/main.js';
+import { fixture } from './fixtures.mjs';
 
 const [tftopl = 'tftopl', pltotf = 'pltotf', corpusDir] = process.argv.slice(2);
 const dest = resolve('artifacts/crosscheck');
@@ -81,15 +82,50 @@ assert.equal(refReport.data.extensibles.length, 1);
 
 // Keep the reference tool's correction messages on intentionally broken files.
 const malformed = [];
-for (const name of ['bad-index.tfm', 'truncated.tfm']) {
+for (const name of ['bad-index.tfm', 'truncated.tfm', 'bad-boundary-entry.tfm']) {
   const r = spawnSync(tftopl, [resolve('fixtures', name), join(dest, `${name}.pl`)], { encoding: 'utf8', timeout: 20000, windowsHide: true });
   assert.ifError(r.error);
-  malformed.push({ name, reference_exit: r.status, stdout: r.stdout, stderr: r.stderr,
-    moon_report: JSON.parse(engine.inspect_json(readFileSync(resolve('fixtures', name)))) });
+  const moonReport = JSON.parse(engine.inspect_json(readFileSync(resolve('fixtures', name))));
+  assert.equal(moonReport.status, 'invalid', `${name}: malformed input accepted`);
+  if (name === 'bad-boundary-entry.tfm') {
+    assert.match(r.stdout + r.stderr, /starting index.*too large/is);
+    assert.equal(moonReport.diagnostics[0].actual, 65535);
+    assert.equal(moonReport.diagnostics[0].character_code, 65);
+  }
+  malformed.push({ name, reference_exit: r.status, stdout: r.stdout, stderr: r.stderr, moon_report: moonReport });
+}
+
+// Separate boundary contexts must agree with TeXware without running a ligature engine.
+const boundaryCases = [];
+const longProgram = Array.from({ length: 257 }, () => [128, 65, 128, 0]);
+longProgram[0] = [255, 250, 1, 0];
+const controls = [
+  ['right-declaration-only', { lig: [[255, 250, 255, 255], [128, 250, 128, 0]], kerns: [-1] }],
+  ['right-declaration-as-entry', { chars: [[1, 0x10, 1, 0]], lig: [[255, 250, 0, 1], [128, 250, 128, 0]], kerns: [-1] }],
+  ['single-boundary-declaration', { lig: [[255, 250, 0, 0]] }],
+  ['single-boundary-as-entry', { chars: [[1, 0x10, 1, 0]], lig: [[255, 250, 0, 0]] }],
+  ['left-and-right-boundaries', { chars: [[1, 0x10, 1, 0]], lig: [[255, 250, 0, 1], [128, 250, 128, 0], [255, 0, 0, 1]], kerns: [-1] }],
+  ['stop-128-is-operation', { chars: [[1, 0x10, 1, 0]], lig: [[128, 65, 0, 65]] }],
+  ['restart-only-once', { chars: [[1, 0x10, 1, 0]], lig: [[129, 0, 0, 1], [129, 0, 0, 0]] }],
+  ['restart-high-address-byte', { chars: [[1, 0x10, 1, 0]], lig: longProgram, kerns: [-1] }],
+];
+for (const [name, options] of controls) {
+  const bytes = fixture(options);
+  const input = join(dest, `${name}.tfm`);
+  const output = join(dest, `${name}.pl`);
+  writeFileSync(input, bytes);
+  const moonReport = JSON.parse(engine.inspect_json(bytes));
+  assert.equal(moonReport.status, 'ok', name);
+  const referenceOutput = run(tftopl, [input, output]);
+  const pl = readFileSync(output, 'utf8');
+  assert.doesNotMatch(pl, /TFM FILE WAS BAD/i, `${name}: TeXware corrected the file`);
+  boundaryCases.push({ name, sha256: createHash('sha256').update(bytes).digest('hex'),
+    moon_status: moonReport.status, reference_output: referenceOutput });
 }
 const summary = { schema_version: 1, toolchain: { tftopl: version, pltotf: pltotfVersion },
   generated_from: 'fixtures/reference.pl', generation, files: results.length, characters: totalCharacters,
-  tolerance_raw_units: 1, max_raw_rounding_error: maxRawRoundingError, results, malformed };
+  tolerance_raw_units: 1, max_raw_rounding_error: maxRawRoundingError, results, malformed, boundary_cases: boundaryCases };
 writeFileSync(join(dest, 'summary.json'), JSON.stringify(summary, null, 2) + '\n');
 console.log(JSON.stringify({ files: results.length, characters: totalCharacters,
-  max_raw_rounding_error: maxRawRoundingError, report: 'artifacts/crosscheck/summary.json' }, null, 2));
+  max_raw_rounding_error: maxRawRoundingError, boundary_cases: boundaryCases.length,
+  report: 'artifacts/crosscheck/summary.json' }, null, 2));
