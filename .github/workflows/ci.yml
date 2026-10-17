@@ -58,6 +58,13 @@ jobs:
         run: |
           node scripts/fixtures.mjs
           node --test tests/*.test.mjs
+      - name: CLI acceptance demo
+        run: node scripts/demo.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cli-demo-${{ runner.os }}
+          path: artifacts/demo/
       - name: Install TeXware (Linux)
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y texlive-binaries

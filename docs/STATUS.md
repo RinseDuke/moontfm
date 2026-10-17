@@ -2,6 +2,8 @@
 
 更新日期：2026-10-15。
 
+2026-10-17 补充：上轮修复提交 `8ee72c9` 已推送，[Windows/Linux CI 均通过](https://github.com/RinseDuke/moontfm/actions/runs/38999131597)。本轮提供 [实现导览与八项验收演示](IMPLEMENTATION.md)，使用 `node scripts/demo.mjs` 检查实际效果。下文历史基线保持原日期，用户完成标记仍仅由用户维护。
+
 2026-10-16 修复验证补充：lig/kern 字符入口的实际跳转地址检查、边界组合回归与工具链/标准库版本一致性检查，详见 [本轮证据](validation/fixes-2026-10-16.md)。本轮本地为 5 个 MoonBit 测试、42 个 Node/CLI 测试，另有 8 组 TeXware 边界对照。下文保留 10 月 15 日基线；MEMORY.md 的已完成和关键决策由用户维护。
 
 ## 已实现

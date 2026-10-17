@@ -39,6 +39,8 @@ node bin/moontfm.mjs diff fixtures/minimal.tfm fixtures/wider.tfm
 
 结果依次为：设计字号 10pt、字符 65 的宽度原始值 524288（0.5 个设计字号单位）、字节 32 的宽度索引 250 越界、字符 65 的宽度由 524288 变为 655360。后两步退出码分别为 2 和 1，这是预期结果。
 
+希望先检查效果，可直接运行 `node scripts/demo.mjs`（或 `npm run demo`）：它会实际执行八种案例、逐项核对字段与退出码，并生成 `artifacts/demo/report.md` 和 `report.json`。也可用 `--case bad-lig-entry` 单独检查入口越界。实现原理、字节布局和源码导览见 [如何实现与验收](docs/IMPLEMENTATION.md)。GitHub CI 的 `CLI acceptance demo` 步骤会运行相同演示，并上传 `cli-demo-Windows` / `cli-demo-Linux` 报告。
+
 各命令均可添加 `--json` 获取版本化报告：
 
 ```powershell
