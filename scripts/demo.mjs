@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
@@ -87,6 +87,20 @@ function markdown(summary) {
   return lines.join('\n') + '\n';
 }
 
+function gitMetadata() {
+  const options = { cwd: root, encoding: 'utf8', windowsHide: true };
+  const top = spawnSync('git', ['rev-parse', '--show-toplevel'], options);
+  // A source archive may live inside an unrelated checkout. Do not attribute it
+  // to that ancestor's commit or working tree.
+  if (top.status !== 0 || realpathSync(top.stdout.trim()) !== realpathSync(root)) {
+    return { git_commit: null, git_dirty: null };
+  }
+  const commit = spawnSync('git', ['rev-parse', 'HEAD'], options);
+  const dirty = spawnSync('git', ['status', '--porcelain'], options);
+  return { git_commit: commit.status === 0 ? commit.stdout.trim() : null,
+    git_dirty: dirty.status === 0 ? dirty.stdout.trim().length > 0 : null };
+}
+
 function main() {
   const args = process.argv.slice(2);
   if (args.length === 1 && args[0] === '--list') {
@@ -111,12 +125,10 @@ function main() {
   }
   const engine = join(root, '_build/js/release/build/cmd/main/main.js');
   if (!existsSync(engine)) throw new Error('Build first: moon build --target js --release');
-  const commit = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8', windowsHide: true });
-  const dirty = spawnSync('git', ['status', '--porcelain'], { cwd: root, encoding: 'utf8', windowsHide: true });
+  const metadata = gitMetadata();
   const results = selected.map(execute);
   const summary = { schema_version: 1, executed_at: new Date().toISOString(),
-    git_commit: commit.status === 0 ? commit.stdout.trim() : null,
-    git_dirty: dirty.status === 0 ? dirty.stdout.trim().length > 0 : null,
+    ...metadata,
     engine_sha256: createHash('sha256').update(readFileSync(engine)).digest('hex'),
     total: results.length, passed: results.filter(item => item.matches).length, cases: results };
   const destination = join(root, 'artifacts/demo');

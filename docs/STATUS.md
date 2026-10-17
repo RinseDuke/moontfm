@@ -1,34 +1,26 @@
 # MoonTFM 当前状态
 
-更新日期：2026-10-15。
+核验日期：2026-10-17。版本：0.1.0。当前处于首版提交前验收阶段；本页记录技术事实，不代替用户维护 MEMORY.md 的完成标记。
 
-2026-10-17 补充：上轮修复提交 `8ee72c9` 已推送，[Windows/Linux CI 均通过](https://github.com/RinseDuke/moontfm/actions/runs/38999131597)。本轮提供 [实现导览与八项验收演示](IMPLEMENTATION.md)，使用 `node scripts/demo.mjs` 检查实际效果。下文历史基线保持原日期，用户完成标记仍仅由用户维护。
+## 功能与验证
 
-2026-10-16 修复验证补充：lig/kern 字符入口的实际跳转地址检查、边界组合回归与工具链/标准库版本一致性检查，详见 [本轮证据](validation/fixes-2026-10-16.md)。本轮本地为 5 个 MoonBit 测试、42 个 Node/CLI 测试，另有 8 组 TeXware 边界对照。下文保留 10 月 15 日基线；MEMORY.md 的已完成和关键决策由用户维护。
+- MoonBit 核心提供经典 8 位 TFM 全表解析、结构与引用校验、字符度量查询和差异分析。
+- inspect、validate、glyph、diff 四个 CLI 命令支持文本与 JSON，明确区分正常结果、差异、无效输入和运行错误。
+- 10 个原创二进制样例、原创 PL、API 与实现导览均已提供。
+- 本地格式检查、严格检查与 release 构建通过；5 个 MoonBit 测试和 43 个 Node 测试通过，包括安装脚本、报告溯源和 1,500 组变异或随机输入。
+- 实际 CLI 演示 8/8 符合预期；源码包重新解压后也能独立构建、测试并运行演示，无需 npm 依赖或 TeX 运行时。
+- TeXware 对照 76 个文件、9,511 个字符和 8 组边界组合通过。机器证据在 `artifacts/crosscheck/summary.json`；已提交的先前记录见 `validation/crosscheck-2026-10-16.json`。
+- 远端已核实的代码基线 `9ca6e94` 在 [Windows/Linux CI](https://github.com/RinseDuke/moontfm/actions/runs/38999359765) 均通过，包含 CLI 演示与 Linux TeXware 对照。本轮还修正源码包演示误用外层 Git 仓库信息的问题，后续提交的结果请按 SHA 在 [CI 列表](https://github.com/RinseDuke/moontfm/actions) 核对。
 
-## 已实现
+本轮判断、官方要求映射与剩余事项见 [提交前核验](validation/readiness-2026-10-17.md)。检查实际效果可运行 `node scripts/demo.mjs`，原理见 [实现导览](IMPLEMENTATION.md)。
 
-- 纯 MoonBit 的经典 8 位 TFM 全表解析、结构和引用校验。
-- 原始定点数与字符存在性、查询、字符度量差异及其他表变化。
-- inspect、validate、glyph、diff 四个命令，文本和 JSON，明确退出码。
-- 9 个原创二进制样例、原创 PL、MoonBit API 单元测试、CLI 与变异输入测试。
-- Windows 项目内工具链安装脚本，固定编译器版本；GitHub Actions 的 Windows/Linux 工作流。
-- API、JSON、范围边界、样例来源与许可、复现及交叉验证文档。
+## 范围与剩余事项
 
-## 验证证据
+本版验证 JS 后端，宿主为 Windows/Linux。完整连字执行与循环语义、seven-bit-safe 声明、头字符串内容、数学字体参数数量、渲染、JFM/OFM 不在首版覆盖范围；报告始终披露 coverage / not_covered。
 
-- 本地格式、严格检查、release 构建通过，编译器无警告。
-- 5 个 MoonBit 测试、31 个 Node/CLI 测试通过；包括 1,500 组确定性变异或随机输入。
-- TeXware 对照 76 个文件、9,511 个字符通过，机器记录见 `validation/crosscheck-2026-10-15.json`。
+- 用户人工验收：需由参赛者检查演示效果，并能解释实现与边界。
+- 外部独立审查：任务说明已准备，尚未收到 Claude/GLM 报告。这是内部质量计划，并非已核实的官方必需附件。
+- 赛事报名、资格审核、入群及最终验收：没有可核实回执，不能标为已提交或已接收。正式章程和群通知的附件要求仍需核对。
+- Mooncakes：按用户要求暂缓，不登录、不发布。模块元数据与本地源码打包可用，但不能表述为已发布；是否属于最终验收要求，应以本次参赛的正式章程为准。
 
-以上记录针对 JS 后端。完整连字执行语义不属于首版承诺。
-
-## 外部交付状态
-
-- 公开仓库：[RinseDuke/moontfm](https://github.com/RinseDuke/moontfm) 已创建并推送首版。
-- 远端 CI：Windows 与 Linux 全部通过，包含格式、严格检查、release 构建、两组测试，以及 Linux 的原创 PL/TeXware 对照。[成功运行](https://github.com/RinseDuke/moontfm/actions/runs/38763077187) 对应代码提交 `7a85d29708f0d3359983da3090e6e9fa93806215`。
-- Mooncakes：用户要求暂缓，不进行登录或发布。已准备版本 0.1.0 的模块元数据，`moon package --list` 与 `moon package` 本地检查和打包通过；此前 `moon publish --dry-run` 因缺少 credentials.json 要求登录，尚未发布。不得把本地模块名表述为已发布包。
-- 外部独立审查：任务说明已准备，尚未收到 Claude/GLM 的独立报告。
-- 赛事报名/验收：尚无已提交、已接收的证据。须通过参赛者可访问的官方入口完成并保留回执。
-
-后续更新这些状态必须依据实际操作结果。原始时间表保留在 `ACCEPTANCE_PLAN.md`，不再以原始计划日期推断实现状态。
+技术上可以提交现有首版供审核；正式接收状态只能依据赛事方回执判断。

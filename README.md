@@ -91,6 +91,7 @@ MoonBit 单元测试验证库 API；Node 测试验证编译后的 MoonBit 核心
 - [当前进度与剩余交付](docs/STATUS.md)
 - [项目记忆与用户待确认事项](MEMORY.md)
 - [2026-10-16 修复验证](docs/validation/fixes-2026-10-16.md)
+- [2026-10-17 提交前核验](docs/validation/readiness-2026-10-17.md)
 - [验证记录与复现方法](docs/VALIDATION.md)
 - [样例来源与许可](fixtures/README.md)
 - [申报书](PROPOSAL.md)、[选题研究](docs/TOPIC_RESEARCH.md)、[设计](docs/DESIGN.md)、[验收计划](docs/ACCEPTANCE_PLAN.md)
