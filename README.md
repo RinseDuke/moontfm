@@ -6,7 +6,7 @@ MoonTFM 是使用 MoonBit 实现的经典 TeX 字体度量文件（`.tfm`）解�
 
 公开仓库：[RinseDuke/moontfm](https://github.com/RinseDuke/moontfm)。
 
-当前状态：首版已在 Windows 和 Linux 上完成严格编译和测试，并与 TeXware 交叉核验。核心逻辑全部使用 MoonBit，CLI 的 Node.js 层只负责参数、文件读取、文本展示和退出码。日常运行不需要安装 TeX，也不需要联网。远端 CI、Mooncakes 发布与赛事提交状态见 [当前进度](docs/STATUS.md)。
+核心逻辑全部使用 MoonBit，CLI 的 Node.js 层只负责参数、文件读取、文本展示和退出码。JS 后端已在 Windows 和 Linux 上完成严格编译和测试，并与 TeXware 交叉核验。日常运行不需要安装 TeX，也不需要联网。[GitHub Actions](https://github.com/RinseDuke/moontfm/actions) 持续验证构建、测试和演示。
 
 ## 安装和构建
 
@@ -24,7 +24,7 @@ bootstrap 仅将工具链安装到忽略的 `.tools/moon/`，并为当前 PowerS
 
 复用前会核对编译器和标准库的完整版本。标准库版本不匹配时，先解压并检查新版本，再替换旧目录，避免混入旧源码或构建缓存；错误或损坏归档不会移除现有标准库。
 
-其他系统可以使用 [MoonBit 官方工具链](https://www.moonbitlang.com/download/)，安装与 `moon-toolchain` 一致的版本；Linux 安装步骤也可参考 [CI](.github/workflows/ci.yml)。项目没有额外 Mooncakes 或 npm 依赖，无需执行 `npm install`。
+其他系统可以使用 [MoonBit 官方工具链](https://www.moonbitlang.com/download/)，安装与 `moon-toolchain` 一致的版本；Linux 安装步骤也可参考 [CI](https://github.com/RinseDuke/moontfm/blob/main/.github/workflows/ci.yml)。项目没有额外 Mooncakes 或 npm 依赖，无需执行 `npm install`。
 
 ## 四步演示
 
@@ -39,7 +39,7 @@ node bin/moontfm.mjs diff fixtures/minimal.tfm fixtures/wider.tfm
 
 结果依次为：设计字号 10pt、字符 65 的宽度原始值 524288（0.5 个设计字号单位）、字节 32 的宽度索引 250 越界、字符 65 的宽度由 524288 变为 655360。后两步退出码分别为 2 和 1，这是预期结果。
 
-希望先检查效果，可直接运行 `node scripts/demo.mjs`（或 `npm run demo`）：它会实际执行八种案例、逐项核对字段与退出码，并生成 `artifacts/demo/report.md` 和 `report.json`。也可用 `--case bad-lig-entry` 单独检查入口越界。实现原理、字节布局和源码导览见 [如何实现与验收](docs/IMPLEMENTATION.md)。GitHub CI 的 `CLI acceptance demo` 步骤会运行相同演示，并上传 `cli-demo-Windows` / `cli-demo-Linux` 报告。
+希望先检查效果，可直接运行 `node scripts/demo.mjs`（或 `npm run demo`）：它会实际执行八种案例、逐项核对字段与退出码，并生成 `artifacts/demo/report.md` 和 `report.json`。也可用 `--case bad-lig-entry` 单独检查入口越界。实现原理、字节布局和源码导览见 [实现与演示说明](docs/IMPLEMENTATION.md)。GitHub CI 的 `CLI acceptance demo` 步骤会运行相同演示，并上传 `cli-demo-Windows` / `cli-demo-Linux` 报告。
 
 各命令均可添加 `--json` 获取版本化报告：
 
@@ -88,13 +88,8 @@ MoonBit 单元测试验证库 API；Node 测试验证编译后的 MoonBit 核心
 ## 文档
 
 - [API 与 JSON 契约](docs/API.md)
-- [当前进度与剩余交付](docs/STATUS.md)
-- [项目记忆与用户待确认事项](MEMORY.md)
-- [2026-10-16 修复验证](docs/validation/fixes-2026-10-16.md)
-- [2026-10-17 提交前核验](docs/validation/readiness-2026-10-17.md)
+- [实现与演示说明](docs/IMPLEMENTATION.md)
 - [验证记录与复现方法](docs/VALIDATION.md)
 - [样例来源与许可](fixtures/README.md)
-- [申报书](PROPOSAL.md)、[选题研究](docs/TOPIC_RESEARCH.md)、[设计](docs/DESIGN.md)、[验收计划](docs/ACCEPTANCE_PLAN.md)
-- [外部审查任务](docs/REVIEW_BRIEF.md)
 
 格式依据为 [TeX Live 的 TFtoPL 源码说明](https://github.com/TeX-Live/texlive-source/blob/trunk/texk/web2c/tftopl.web)。MoonTFM 独立实现，不调用外部解析工具完成核心功能；TeXware 仅用于开发验证。第三方测试语料没有纳入本仓库，来源、哈希与许可单独记录。

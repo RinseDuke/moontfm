@@ -6,3 +6,18 @@ target/
 artifacts/
 .tools/
 node_modules/
+
+# Local assistant configuration and working notes
+.claude/
+.codex/
+.cursor/
+.cursorrules
+[Cc][Ll][Aa][Uu][Dd][Ee].[Mm][Dd]
+[Mm][Ee][Mm][Oo][Rr][Yy].[Mm][Dd]
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+[Gg][Ee][Mm][Ii][Nn][Ii].[Mm][Dd]
+
+# Internal proposals, schedules and topic research
+PROPOSAL.md
+*_PLAN.md
+research/

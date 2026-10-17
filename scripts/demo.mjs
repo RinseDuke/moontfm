@@ -17,7 +17,7 @@ const cases = [
     expected: { status: 'invalid', 'diagnostics.0.code': 'INDEX_OUT_OF_RANGE',
       'diagnostics.0.byte_offset': 32, 'diagnostics.0.character_code': 65,
       'diagnostics.0.actual': 250, 'diagnostics.0.expected_min': 0, 'diagnostics.0.expected_max': 1 } },
-  { id: 'bad-lig-entry', title: '检查上轮修复的连字入口越界', args: ['validate', 'fixtures/bad-boundary-entry.tfm'], exit: 2,
+  { id: 'bad-lig-entry', title: '定位连字入口越界', args: ['validate', 'fixtures/bad-boundary-entry.tfm'], exit: 2,
     expected: { status: 'invalid', 'diagnostics.0.code': 'INDEX_OUT_OF_RANGE',
       'diagnostics.0.byte_offset': 62, 'diagnostics.0.character_code': 65,
       'diagnostics.0.actual': 65535, 'diagnostics.0.expected_max': 1 } },
